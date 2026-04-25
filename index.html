@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <body>
+      <p>page1</p>
+  </body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Pour toi 💖</title>
+
+<style>
+body {
+  margin: 0;
+  text-align: center;
+  background: linear-gradient(135deg, #ffc0cb, #ff69b4);
+  font-family: "Comic Sans MS", cursive;
+  overflow: hidden;
+}
+
+/* الصورة */
+img {
+  width: 300px;
+  border-radius: 20px;
+  margin-top: 50px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.9);
+  transition: opacity 0.6s, transform 0.6s;
+}
+
+/* القطة */
+.cat {
+  font-size: 70px;
+  cursor: pointer;
+  margin-top: 20px;
+  animation: breathe 2s infinite;
+}
+
+/* تنفس */
+@keyframes breathe {
+  0%,100% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+}
+
+/* عند الضغط */
+.cat:active {
+  transform: scale(1.4) rotate(10deg);
+}
+
+/* النص */
+.message {
+  color: white;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+/* سهم SVG */
+.arrow-svg {
+  position: absolute;
+  top: 360px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.arrow-text {
+  fill: white;
+  font-size: 18px;
+}
+
+/* قلوب */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: float 4s infinite;
+}
+
+@keyframes float {
+  0% {opacity:0; transform: translateY(0) scale(0.5);}
+  50% {opacity:1;}
+  100% {opacity:0; transform: translateY(-200px) scale(1.5);}
+}
+
+/* نجوم */
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+  0%,100% {opacity: 0;}
+  50% {opacity: 1;}
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 style="color:white;">💖 Une petite surprise 💖</h2>
+
+<img id="image" src="image1.jpg">
+
+<div class="message" id="msg"></div>
+
+<div class="cat" onclick="nextImage()">😴🐱</div>
+
+<!-- سهم مرسوم -->
+<svg class="arrow-svg" width="250" height="100">
+  <path d="M10 50 Q 120 0 230 50" stroke="white" stroke-width="3" fill="none"/>
+  <polygon points="230,50 215,40 215,60" fill="white"/>
+  <text x="20" y="90" class="arrow-text">
+    Cliquez ici, Mademoiselle
+  </text>
+</svg>
+
+<audio id="song" src="song.mp3"></audio>
+<audio id="meow" src="meow.mp3"></audio>
+
+<script>
+let images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+let index = 0;
+
+function nextImage() {
+
+  document.getElementById("meow").play();
+
+  let cat = document.querySelector(".cat");
+  cat.innerHTML = "😺✨";
+
+  setTimeout(() => {
+    cat.innerHTML = "😴🐱";
+  }, 500);
+
+  index++;
+
+  if (index < images.length) {
+
+    let img = document.getElementById("image");
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+      img.src = images[index];
+      img.style.opacity = 1;
+      img.style.transform = "scale(1.05)";
+    }, 400);
+
+    // الصورة الثانية
+    if (index === 1) {
+      document.getElementById("msg").innerText =
+      "C'est ainsi que mes yeux te voient, ma belle 💕";
+    }
+
+    // الصورة الثالثة
+    if (index === 2) {
+      document.getElementById("msg").innerText = "";
+
+      for (let i = 0; i < 20; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = "400px";
+        document.body.appendChild(heart);
+      }
+    }
+
+  } else {
+    document.body.innerHTML = `
+      <h2 style="color:white;">🎶 Pour toi 💖</h2>
+      <div style="font-size:50px;">😴🐱 😺🐱 😻🐱</div>
+    `;
+    document.getElementById("song").play();
+  }
+}
+
+/* نجوم */
+for (let i = 0; i < 40; i++) {
+  let star = document.createElement("div");
+  star.className = "star";
+  star.style.left = Math.random() * window.innerWidth + "px";
+  star.style.top = Math.random() * window.innerHeight + "px";
+  document.body.appendChild(star);
+}
+</script>
+
+</body>
+</html>
